@@ -19,7 +19,7 @@ Route::prefix('files')->group(function () {
     Route::post('/upload', [FileUploadController::class, 'store']);
     
     // PUT: Update/replace existing file
-    Route::put('/{id}', [FileUploadController::class, 'update']);
+    Route::post('/{id}', [FileUploadController::class, 'update']);
     
     // DELETE: Delete file
     Route::delete('/{id}', [FileUploadController::class, 'destroy']);

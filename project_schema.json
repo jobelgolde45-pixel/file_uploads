@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UploadedFile",
+  "description": "Schema for uploaded files api project",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Primary key identifier",
+      "minimum": 1
+    },
+    "original_name": {
+      "type": "string",
+      "description": "Original filename as uploaded by user",
+      "maxLength": 255
+    },
+    "file_name": {
+      "type": "string",
+      "description": "Generated/stored filename on disk",
+      "maxLength": 255
+    },
+    "file_path": {
+      "type": "string",
+      "description": "Path to the file relative to disk root",
+      "maxLength": 255
+    },
+    "file_type": {
+      "type": "string",
+      "description": "Category of file: image, document, video, etc.",
+      "maxLength": 255,
+      "enum": ["image", "document", "video", "audio", "archive", "other"]
+    },
+    "file_extension": {
+      "type": "string",
+      "description": "File extension without dot",
+      "maxLength": 10,
+      "pattern": "^[a-zA-Z0-9]{1,10}$"
+    },
+    "file_size": {
+      "type": "integer",
+      "description": "File size in bytes",
+      "minimum": 0
+    },
+    "mime_type": {
+      "type": "string",
+      "description": "MIME type of the file",
+      "maxLength": 255,
+      "examples": ["image/jpeg", "application/pdf", "video/mp4"]
+    },
+    "disk": {
+      "type": "string",
+      "description": "Storage disk name",
+      "maxLength": 255,
+      "default": "public"
+    },
+    "metadata": {
+      "type": ["object", "null"],
+      "description": "Additional file metadata",
+      "properties": {
+        "dimensions": {
+          "type": "object",
+          "description": "Image/video dimensions",
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "duration": {
+          "type": "number",
+          "description": "Audio/video duration in seconds",
+          "minimum": 0
+        },
+        "page_count": {
+          "type": "integer",
+          "description": "Number of pages in a document",
+          "minimum": 1
+        },
+        "has_thumbnail": {
+          "type": "boolean",
+          "description": "Whether a thumbnail was generated"
+        }
+      },
+      "additionalProperties": true
+    },
+    "url": {
+      "type": "string",
+      "description": "Public URL to access the file",
+      "maxLength": 255,
+      "format": "uri"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Timestamp when the record was created",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Timestamp when the record was last updated",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "original_name",
+    "file_name",
+    "file_path",
+    "file_type",
+    "file_extension",
+    "file_size",
+    "mime_type",
+    "url"
+  ],
+  "additionalProperties": false
+}
